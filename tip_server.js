@@ -13,7 +13,7 @@ var methodOverride = require('method-override')
 app.use(methodOverride('_method'))
 
 var sqlite3 = require('sqlite3').verbose();
-var db = new sqlite3.Database('./db/blog.db')
+var db = new sqlite3.Database('blog.db')
 
 //routes
 
@@ -23,9 +23,17 @@ app.get('/', function(req, res) {
 });
 
 //show all posts
-app.get('/home', function(req, res) {
-	db.all("SELECT * FROM posts")
-})
+app.get('/posts', function(req, res) {
+	db.all("SELECT * FROM posts", function(err, data) {
+		if (err) {
+			console.log(err);
+		} else {
+			var posts = data;
+			console.log(posts[0].id)
+		}
+		res.render('index.ejs', {posts: posts});
+	});
+});
 
 
 
