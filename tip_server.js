@@ -92,7 +92,7 @@ app.put('/post/:id', function(req, res) {
 });
 
 //delete a post
-app.delete('post/:id', function(req, res) {
+app.delete('/post/:id', function(req, res) {
 	var id = req.params.id
 	db.run("DELETE FROM posts WHERE id = ?", id, function(err) {
 		if (err) {
