@@ -58,19 +58,38 @@ app.post('/posts', function(req, res) {
 	var textInput = req.body.text
 	var imageInput = req.body.image
 	db.run("INSERT INTO posts (title, text, image) VALUES (?, ?, ?)", titleInput, textInput, imageInput, function(err) {
-			if (err) {
-				console.log(err)
-			} else {
-				res.redirect('/posts')
-			}
+		if (err) {
+			console.log(err)
+		} else {
+			res.redirect('/posts')
+		}
 	});
 });
 
 //edit post form
 app.get('/post/:id/edit', function(req,res) {
 	var id = req.params.id
-	db.get("SELECT * FROM posts WHERE id =")
-})
+	db.get("SELECT * FROM posts WHERE id = ?", id, function(err, data) {
+		var individualPost = data
+		res.render('edit.ejs', {individualPost: individualPost})
+	});
+});
+
+//update a post
+app.put('/post/:id', function(req, res) {
+	console.log(req)
+	var titleEdit = req.body.title
+	var textEdit = req.body.text
+	var imageEdit = req.body.image
+	var id = req.params.id
+	db.run("UPDATE posts SET title = ?, text = ?, image = ? WHERE id = ?", titleEdit, textEdit, imageEdit, id, function(err) { 
+		if (err) {
+			console.log(err)
+		} else {
+			res.redirect('/post/' + parseInt(id))
+		}
+	});
+});
 
 
 

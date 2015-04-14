@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Edit: <%= individualPost.title %></title>
+</head>
+<body>
+	<h1>blog post editorial page</h1>
+	<form <form method="POST" action="/post/<%= individualPost.id %>?_method=PUT">
+		<textarea name='title' rows='4' cols = 40 placeholder='title'></textarea></br>
+		<textarea name='text' rows='20' cols = 40 placeholder='text'></textarea></br>
+		<textarea name='image' rows='4' cols = 40 placeholder='image url'></textarea></br>
+		<button>Submit</button>
+	</form>
+</body>
+</html>
